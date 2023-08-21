@@ -1,0 +1,22 @@
+.list{
+    width: 100vw;
+    min-height: 100vh;
+    position: relative;
+    top: 7rem;
+}
+
+
+.list__content{
+    margin-left: 25px;
+
+}
+.list__content > h1{
+    color: white;
+}
+.list__grid{
+    display: flex;
+    overflow-y: hidden;
+    overflow-x: scroll;
+     scrollbar-width: none;
+
+}
