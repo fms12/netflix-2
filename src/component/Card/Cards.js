@@ -3,47 +3,47 @@ import "./Card.css";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
 import AddIcon from "@mui/icons-material/Add";
 import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
-import ThumbDownOffAltIcon from "@mui/icons-material/ThumbDownOffAlt";
 import Tooltip from "@mui/material/Tooltip";
-import DoneIcon from '@mui/icons-material/Done';
+import DoneIcon from "@mui/icons-material/Done";
 
 import { Link } from "react-router-dom";
-import { useDispatch,useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addItem, removeItem } from "../../utils/listSlice";
-import { Skeleton } from "@mui/material";
 
 const baseImgUrl = "https://image.tmdb.org/t/p/original";
 
-function Cards({ data, isLargeRow,isLiked = false }) {
-    // console.log(data);
-    const [isHovered, setIsHovered] = useState(false);
-    const [isTapped, setIsTapped] = useState(false); // Track tapping state
+function Cards({ data, isLargeRow, isLiked = false }) {
+  // console.log(data);
+  const [isHovered, setIsHovered] = useState(false);
+  const [isTapped, setIsTapped] = useState(false); // Track tapping state
 
-    const handleCardTap = () => {
-      setIsTapped(!isTapped);
-    };
-    
-    const movieIdsInList = useSelector((store)=>store.list.movieIdsInList)
+  const handleCardTap = () => {
+    setIsTapped(!isTapped);
+  };
+
+  const movieIdsInList = useSelector((store) => store.list.movieIdsInList);
   const dispatch = useDispatch();
-const addMovie = (data) => {
-  dispatch(addItem(data));
-
-};
-const removeMovie=(id)=>{
-  dispatch(removeItem(id));
-}
+  const addMovie = (data) => {
+    dispatch(addItem(data));
+  };
+  const removeMovie = (id) => {
+    dispatch(removeItem(id));
+  };
 
   const trailer =
     "https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c0fd273d2c6d9a064f3ae35579b2bbdf&profile_id=139&oauth2_token_id=57447761";
   return (
     <div
-      className={`card__poster ${isTapped ? "tapped" : ""}`}
+      className={`card__poster ${isTapped ? "tapped" : ""} ${
+        isHovered ? "isHovered" : ""
+      }`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onTouchStart={() => setIsHovered(true)}
+      onTouchEnd={() => setIsHovered(false)}
       onClick={handleCardTap}
     >
       {data.backdrop_path !== null && (
-        
         <img
           className={`row__poster ${isLargeRow && "row__posterLarge"}`}
           src={`${baseImgUrl}${
@@ -51,8 +51,7 @@ const removeMovie=(id)=>{
           }`}
           alt={data.name}
         />
-      )
-      }
+      )}
 
       {isHovered && (
         <div className="card__hover">
@@ -68,9 +67,6 @@ const removeMovie=(id)=>{
                     <PlayCircleOutlineIcon className="icon" />
                   </Tooltip>
                 </Link>
-                <Tooltip title="Dislike">
-                  <ThumbDownOffAltIcon />
-                </Tooltip>
                 <Tooltip title="Like">
                   <ThumbUpOffAltIcon />
                 </Tooltip>

@@ -3,6 +3,7 @@ import "./Banner.css";
 import useFetch from "../../utils/useFetch";
 import requests from "../../utils/Requests"
 import { Link } from "react-router-dom";
+import { Skeleton } from "@mui/material";
 
 function Banner() { 
  const movies = useFetch(requests.fetchNetflixOriginals);
@@ -12,7 +13,16 @@ function Banner() {
   function truncate(str, n) {
     return str?.length > n ? str.substr(0, n - 1) + "..." : str;
   }
-  return (
+  if(!movie) return null;
+
+  return movies?.length === 0 ? (
+    <Skeleton
+      sx={{ bgcolor: "red" }}
+      variant="rectangular"
+      width={1000}
+      height={118}
+    />
+  ) : (
     <header
       style={{
         backgroundSize: "cover",
@@ -24,14 +34,15 @@ function Banner() {
       <div className="banner_contents">
         <h1 className="banner_title">
           {movie?.title || movie?.name || movie?.original_name}
-
         </h1>
 
         {/* 2 buttons */}
         <div className="banner_buttons">
-          <button className="banner_button">Play</button>
+          <Link to={"/player"}>
+            <button className="banner_button">Play</button>
+          </Link>
           <Link to={"/mylist"}>
-          <button className="banner_button">My List </button>
+            <button className="banner_button">My List </button>
           </Link>
         </div>
         <h1 className="banner__description">

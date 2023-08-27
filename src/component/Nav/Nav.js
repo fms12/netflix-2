@@ -3,15 +3,12 @@ import {Link} from "react-router-dom"
 import "./Nav.css";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import LogoutIcon from "@mui/icons-material/Logout";
-import Menu from "../Menu/Menu";
 import { auth } from "../../firebase";
-import { selectUser } from "../../utils/userSlice";
-import {useSelector } from "react-redux";
+import { Avatar } from "@mui/material";
 
 function Nav() {
   const [show, handleShow] = useState(false);
   const [open , SetOpen] = useState(false);
-  const user = useSelector(selectUser)
 
   const transitionNavBar = () => {
     if (window.scrollY > 100) {
@@ -43,9 +40,10 @@ const toggleMenu =()=>{
         </Link>
         <div className="nav__avatar">
           <div className="nav__avatarContent">
-            <img
+            <Avatar
               src="https://i.pinimg.com/originals/0d/dc/ca/0ddccae723d85a703b798a5e682c23c1.png"
-              alt="Logo"
+              sx={{ width: 38, objectFit: "contain" }}
+              variant="square"
               onClick={toggleMenu}
             />
             <ArrowDropDownIcon className="nav__dropDown" onClick={toggleMenu} />
@@ -55,9 +53,11 @@ const toggleMenu =()=>{
             <div className="menu">
               <div className="menu__Items">
                 <ul className="menu__list">
-                  <li>Mylist</li>
-                  <li  onClick={()=>auth.signOut()}>
-                    Logout <LogoutIcon className="LogoutIcon"  />
+                  <Link to={"/mylist"}>
+                    <li>Mylist</li>
+                  </Link>
+                  <li onClick={() => auth.signOut()}>
+                    Logout <LogoutIcon className="LogoutIcon" />
                   </li>
                 </ul>
               </div>

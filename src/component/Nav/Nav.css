@@ -32,7 +32,7 @@
 }
 .nav__avatar{
     position: fixed;
-    right: 30px;
+    right: 3rem;
     width: 30px;
     cursor: pointer;
 }
@@ -63,15 +63,25 @@
     list-style: none;
     margin: 0;
     padding: 1rem;
+    box-shadow: rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+}
+
+.menu__Items ul li{
+    list-style: none;
+    
 }
 .menu__list{
     line-height: 2rem;
     display: flex;
     flex-direction: column;
+    
 
 
 }
 .menu__list .LogoutIcon{
  height: 20px;
  
+}
+.nav__dropDown{
+    color: red !important;
 }
